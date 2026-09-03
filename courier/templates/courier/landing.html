@@ -55,11 +55,22 @@
         </svg>
     </button>
 
-    <!-- Hero con foto de fondo de concierto -->
-    <div class="relative overflow-hidden">
-        <img src="{% static 'courier/img/hero-concierto.jpg' %}" alt=""
-             class="absolute inset-0 h-full w-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-b from-stone-900/80 via-stone-900/75 to-stone-50 dark:to-stone-900"></div>
+    <!-- Hero con collage de fotos de fondo -->
+    <div class="relative overflow-hidden min-h-[640px] flex flex-col">
+        <!-- Mosaico de fotos -->
+        <div class="absolute inset-0 grid grid-cols-4 grid-rows-2 gap-0.5 sm:gap-1">
+            <img src="{% static 'courier/img/collage/collage-1.jpg' %}" alt="" class="h-full w-full object-cover">
+            <img src="{% static 'courier/img/collage/collage-2.jpg' %}" alt="" class="h-full w-full object-cover">
+            <img src="{% static 'courier/img/collage/collage-5.webp' %}" alt="" class="h-full w-full object-cover">
+            <img src="{% static 'courier/img/collage/collage-7.png' %}" alt="" class="h-full w-full object-cover">
+            <img src="{% static 'courier/img/collage/collage-4.jpg' %}" alt="" class="h-full w-full object-cover">
+            <img src="{% static 'courier/img/collage/collage-6.webp' %}" alt="" class="h-full w-full object-cover">
+            <img src="{% static 'courier/img/collage/collage-3.jpg' %}" alt="" class="h-full w-full object-cover">
+            <img src="{% static 'courier/img/collage/collage-1.jpg' %}" alt="" class="h-full w-full object-cover">
+        </div>
+        <!-- Overlay oscuro para legibilidad del texto -->
+        <div class="absolute inset-0 bg-stone-900/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/60 to-stone-50 dark:to-stone-900"></div>
 
         <!-- Header -->
         <header class="relative px-6 sm:px-12 py-6 flex items-center justify-between">
@@ -73,18 +84,18 @@
             </a>
         </header>
 
-        <section class="relative px-6 sm:px-12 py-16 sm:py-28 max-w-5xl mx-auto text-center">
+        <section class="relative flex-1 flex flex-col justify-center px-6 sm:px-12 py-16 max-w-5xl mx-auto text-center">
             <p class="text-xs uppercase tracking-widest text-teal-300 font-semibold mb-4">Music Pro Company · Courier</p>
-            <h1 class="font-brand text-3xl sm:text-5xl font-bold tracking-tight text-white mb-6">
+            <h1 class="font-brand text-3xl sm:text-5xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
                 Seguimiento logístico para el equipo del <span class="text-teal-400">Tour 2026</span> de Natanael Cano
             </h1>
-            <p class="text-base sm:text-lg text-stone-200 max-w-2xl mx-auto mb-10">
+            <p class="text-base sm:text-lg text-stone-100 max-w-2xl mx-auto mb-10 drop-shadow">
                 TumbadoTrack centraliza el transporte de instrumentos, sonido e iluminación desde proveedores
                 internacionales hasta cada recinto del tour por México y Estados Unidos: envíos, estados,
                 proveedores y clientes en un solo lugar.
             </p>
             <a href="{% url 'courier:login' %}"
-               class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-medium rounded-md px-8 py-3 transition-colors">
+               class="inline-block self-center bg-teal-500 hover:bg-teal-600 text-white font-medium rounded-md px-8 py-3 transition-colors">
                 Entrar al sistema
             </a>
         </section>
