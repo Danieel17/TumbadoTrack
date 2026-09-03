@@ -85,15 +85,7 @@
         <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(23,24,33,0.92) 0%, rgba(23,24,33,0.55) 60%, rgba(23,24,33,0.25) 100%);"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-stone-950/30 to-stone-50 dark:to-stone-900"></div>
 
-        <!-- Header: solo el botón de login, el branding va como título dentro del hero -->
-        <header class="relative px-6 sm:px-12 py-6 flex items-center justify-end">
-            <a href="{% url 'courier:login' %}"
-               class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">
-                Iniciar sesión
-            </a>
-        </header>
-
-        <section class="relative flex-1 flex flex-col justify-center px-6 sm:px-12 py-10 max-w-5xl mx-auto text-center">
+        <section class="relative flex-1 flex flex-col justify-center px-6 sm:px-12 py-16 max-w-5xl mx-auto text-center">
             <div class="flex items-center justify-center gap-4 mb-8">
                 <img src="{% static 'courier/img/logo.png' %}" alt="" class="h-14 w-14 sm:h-20 sm:w-20 object-contain drop-shadow-2xl">
                 <span class="font-brand text-4xl sm:text-6xl font-extrabold tracking-tight text-white drop-shadow-2xl">TumbadoTrack</span>
