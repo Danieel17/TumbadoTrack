@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85em;
+}
