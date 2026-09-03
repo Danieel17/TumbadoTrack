@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TumbadoTrack{% endblock %} · Music Pro Company</title>
+    <!-- Tailwind vía CDN: suficiente para la Unidad 1. Si más adelante se
+         necesita un build propio (purge, plugins), se reemplaza por un
+         pipeline de Tailwind CLI sin tocar los templates. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 shrink-0 bg-slate-900 border-r border-slate-800 flex flex-col">
+        <div class="px-6 py-5 border-b border-slate-800">
+            <p class="text-xl font-bold text-cyan-400">TumbadoTrack</p>
+            <p class="text-xs text-slate-500 mt-1">Music Pro Company · Courier</p>
+        </div>
+        <nav class="flex-1 px-3 py-4 space-y-1">
+            <a href="{% url 'courier:dashboard' %}"
+               class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-800 hover:text-cyan-400 transition-colors">
+                Dashboard
+            </a>
+            <a href="{% url 'courier:lista_envios' %}"
+               class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-800 hover:text-cyan-400 transition-colors">
+                Envíos
+            </a>
+            <a href="{% url 'courier:lista_proveedores' %}"
+               class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-800 hover:text-cyan-400 transition-colors">
+                Proveedores
+            </a>
+            <a href="{% url 'courier:lista_clientes' %}"
+               class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-800 hover:text-cyan-400 transition-colors">
+                Clientes
+            </a>
+        </nav>
+        <div class="px-6 py-4 border-t border-slate-800 text-xs text-slate-600">
+            Tour Natanael Cano 2026
+        </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <div class="flex-1 flex flex-col">
+        <header class="border-b border-slate-800 px-8 py-4">
+            <h1 class="text-lg font-semibold text-slate-100">{% block header %}{% endblock %}</h1>
+        </header>
+        <main class="flex-1 px-8 py-6">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+</body>
+</html>

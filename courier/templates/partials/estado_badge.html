@@ -1,0 +1,14 @@
+{% comment %}
+Uso: {% include "partials/estado_badge.html" with estado=envio.estado %}
+{% endcomment %}
+{% if estado == "entregado" %}
+    <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Entregado</span>
+{% elif estado == "en_transito" %}
+    <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">En tránsito</span>
+{% elif estado == "en_aduana" %}
+    <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/30">En aduana</span>
+{% elif estado == "preparando" %}
+    <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-slate-500/10 text-slate-400 border border-slate-500/30">Preparando</span>
+{% else %}
+    <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-slate-700 text-slate-300">{{ estado }}</span>
+{% endif %}

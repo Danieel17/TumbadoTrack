@@ -1,0 +1,66 @@
+{% extends "courier/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block header %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-slate-900 border border-slate-800 rounded-lg p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500">Total envíos</p>
+        <p class="text-3xl font-bold text-slate-100 mt-2">{{ estadisticas.total_envios }}</p>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-lg p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500">En tránsito</p>
+        <p class="text-3xl font-bold text-cyan-400 mt-2">{{ estadisticas.en_transito }}</p>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-lg p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500">En aduana</p>
+        <p class="text-3xl font-bold text-amber-400 mt-2">{{ estadisticas.en_aduana }}</p>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-lg p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500">Entregados</p>
+        <p class="text-3xl font-bold text-emerald-400 mt-2">{{ estadisticas.entregados }}</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-2 gap-4 mb-8">
+    <div class="bg-slate-900 border border-slate-800 rounded-lg p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500">Proveedores activos</p>
+        <p class="text-3xl font-bold text-slate-100 mt-2">{{ estadisticas.total_proveedores }}</p>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-lg p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500">Clientes / venues</p>
+        <p class="text-3xl font-bold text-slate-100 mt-2">{{ estadisticas.total_clientes }}</p>
+    </div>
+</div>
+
+<div class="bg-slate-900 border border-slate-800 rounded-lg">
+    <div class="px-5 py-4 border-b border-slate-800">
+        <h2 class="text-sm font-semibold text-slate-300">Envíos recientes</h2>
+    </div>
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="text-left text-xs uppercase text-slate-500 border-b border-slate-800">
+                <th class="px-5 py-3">Código</th>
+                <th class="px-5 py-3">Destino</th>
+                <th class="px-5 py-3">Estado</th>
+                <th class="px-5 py-3">Fecha envío</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for envio in envios_recientes %}
+            <tr class="border-b border-slate-800/60 hover:bg-slate-800/40">
+                <td class="px-5 py-3">
+                    <a href="{% url 'courier:detalle_envio' envio.id %}" class="text-cyan-400 hover:underline">{{ envio.codigo }}</a>
+                </td>
+                <td class="px-5 py-3 text-slate-300">{{ envio.destino }}</td>
+                <td class="px-5 py-3">{% include "partials/estado_badge.html" with estado=envio.estado %}</td>
+                <td class="px-5 py-3 text-slate-400">{{ envio.fecha_envio }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="px-5 py-6 text-center text-slate-500">No hay envíos registrados.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
