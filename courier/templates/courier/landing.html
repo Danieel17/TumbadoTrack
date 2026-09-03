@@ -85,14 +85,15 @@
         <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(23,24,33,0.92) 0%, rgba(23,24,33,0.55) 60%, rgba(23,24,33,0.25) 100%);"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-stone-950/30 to-stone-50 dark:to-stone-900"></div>
 
-        <!-- Header -->
-        <header class="relative px-6 sm:px-12 py-6 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="{% static 'courier/img/logo.png' %}" alt="TumbadoTrack" class="h-10 w-10 object-contain">
-                <span class="font-brand text-lg font-bold tracking-tight text-white">TumbadoTrack</span>
+        <!-- Header: logo y nombre centrados (única zona sin fotos del collage) -->
+        <header class="relative px-6 sm:px-12 py-6 grid grid-cols-[1fr_auto_1fr] items-center">
+            <div></div>
+            <div class="flex items-center gap-3 justify-self-center">
+                <img src="{% static 'courier/img/logo.png' %}" alt="TumbadoTrack" class="h-10 w-10 object-contain drop-shadow-lg">
+                <span class="font-brand text-lg font-bold tracking-tight text-white drop-shadow-lg">TumbadoTrack</span>
             </div>
             <a href="{% url 'courier:login' %}"
-               class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">
+               class="justify-self-end bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">
                 Iniciar sesión
             </a>
         </header>
