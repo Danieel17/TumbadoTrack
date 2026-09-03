@@ -6,31 +6,31 @@
 {% block content %}
 <div class="flex gap-2 mb-5 text-sm">
     <a href="{% url 'courier:lista_envios' %}"
-       class="px-3 py-1.5 rounded-md border {% if not estado_filtro %}border-cyan-500 text-cyan-400{% else %}border-slate-800 text-slate-400 hover:border-slate-700{% endif %}">
+       class="px-3 py-1.5 rounded-md border {% if not estado_filtro %}border-teal-500 text-teal-600 dark:text-teal-400{% else %}border-stone-200 text-stone-500 hover:border-stone-300 dark:border-stone-700 dark:text-stone-400 dark:hover:border-stone-600{% endif %}">
         Todos
     </a>
     <a href="?estado=preparando"
-       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "preparando" %}border-cyan-500 text-cyan-400{% else %}border-slate-800 text-slate-400 hover:border-slate-700{% endif %}">
+       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "preparando" %}border-teal-500 text-teal-600 dark:text-teal-400{% else %}border-stone-200 text-stone-500 hover:border-stone-300 dark:border-stone-700 dark:text-stone-400 dark:hover:border-stone-600{% endif %}">
         Preparando
     </a>
     <a href="?estado=en_transito"
-       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "en_transito" %}border-cyan-500 text-cyan-400{% else %}border-slate-800 text-slate-400 hover:border-slate-700{% endif %}">
+       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "en_transito" %}border-teal-500 text-teal-600 dark:text-teal-400{% else %}border-stone-200 text-stone-500 hover:border-stone-300 dark:border-stone-700 dark:text-stone-400 dark:hover:border-stone-600{% endif %}">
         En tránsito
     </a>
     <a href="?estado=en_aduana"
-       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "en_aduana" %}border-cyan-500 text-cyan-400{% else %}border-slate-800 text-slate-400 hover:border-slate-700{% endif %}">
+       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "en_aduana" %}border-teal-500 text-teal-600 dark:text-teal-400{% else %}border-stone-200 text-stone-500 hover:border-stone-300 dark:border-stone-700 dark:text-stone-400 dark:hover:border-stone-600{% endif %}">
         En aduana
     </a>
     <a href="?estado=entregado"
-       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "entregado" %}border-cyan-500 text-cyan-400{% else %}border-slate-800 text-slate-400 hover:border-slate-700{% endif %}">
+       class="px-3 py-1.5 rounded-md border {% if estado_filtro == "entregado" %}border-teal-500 text-teal-600 dark:text-teal-400{% else %}border-stone-200 text-stone-500 hover:border-stone-300 dark:border-stone-700 dark:text-stone-400 dark:hover:border-stone-600{% endif %}">
         Entregados
     </a>
 </div>
 
-<div class="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden">
+<div class="bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg overflow-hidden">
     <table class="w-full text-sm">
         <thead>
-            <tr class="text-left text-xs uppercase text-slate-500 border-b border-slate-800">
+            <tr class="text-left text-xs uppercase text-stone-500 dark:text-stone-400 border-b border-stone-200 dark:border-stone-700">
                 <th class="px-5 py-3">Código</th>
                 <th class="px-5 py-3">Producto</th>
                 <th class="px-5 py-3">Proveedor</th>
@@ -42,19 +42,19 @@
         </thead>
         <tbody>
             {% for envio in envios %}
-            <tr class="border-b border-slate-800/60 hover:bg-slate-800/40">
-                <td class="px-5 py-3 text-slate-200 font-medium">{{ envio.codigo }}</td>
-                <td class="px-5 py-3 text-slate-300">{{ envio.producto.nombre }}</td>
-                <td class="px-5 py-3 text-slate-400">{{ envio.proveedor.nombre }}</td>
-                <td class="px-5 py-3 text-slate-400">{{ envio.cliente.nombre }}</td>
-                <td class="px-5 py-3 text-slate-400">{{ envio.destino }}</td>
+            <tr class="border-b border-stone-100 dark:border-stone-700/60 hover:bg-stone-50 dark:hover:bg-stone-700/40">
+                <td class="px-5 py-3 text-stone-900 dark:text-stone-200 font-medium">{{ envio.codigo }}</td>
+                <td class="px-5 py-3 text-stone-600 dark:text-stone-300">{{ envio.producto.nombre }}</td>
+                <td class="px-5 py-3 text-stone-500 dark:text-stone-400">{{ envio.proveedor.nombre }}</td>
+                <td class="px-5 py-3 text-stone-500 dark:text-stone-400">{{ envio.cliente.nombre }}</td>
+                <td class="px-5 py-3 text-stone-500 dark:text-stone-400">{{ envio.destino }}</td>
                 <td class="px-5 py-3">{% include "partials/estado_badge.html" with estado=envio.estado %}</td>
                 <td class="px-5 py-3 text-right">
-                    <a href="{% url 'courier:detalle_envio' envio.id %}" class="text-cyan-400 hover:underline">Ver tracking</a>
+                    <a href="{% url 'courier:detalle_envio' envio.id %}" class="text-teal-600 dark:text-teal-400 hover:underline">Ver tracking</a>
                 </td>
             </tr>
             {% empty %}
-            <tr><td colspan="7" class="px-5 py-6 text-center text-slate-500">No hay envíos con este estado.</td></tr>
+            <tr><td colspan="7" class="px-5 py-6 text-center text-stone-500">No hay envíos con este estado.</td></tr>
             {% endfor %}
         </tbody>
     </table>

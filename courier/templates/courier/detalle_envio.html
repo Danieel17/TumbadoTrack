@@ -4,72 +4,72 @@
 {% block header %}Tracking · {{ envio.codigo }}{% endblock %}
 
 {% block content %}
-<a href="{% url 'courier:lista_envios' %}" class="text-sm text-cyan-400 hover:underline">&larr; Volver a envíos</a>
+<a href="{% url 'courier:lista_envios' %}" class="text-sm text-teal-600 dark:text-teal-400 hover:underline">&larr; Volver a envíos</a>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-5">
     <!-- Info del envío -->
-    <div class="md:col-span-1 bg-slate-900 border border-slate-800 rounded-lg p-5 space-y-4 h-fit">
+    <div class="md:col-span-1 bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-5 space-y-4 h-fit">
         <div class="flex items-center justify-between">
-            <h2 class="text-base font-semibold text-slate-100">{{ envio.codigo }}</h2>
+            <h2 class="text-base font-semibold text-stone-900 dark:text-stone-100">{{ envio.codigo }}</h2>
             {% include "partials/estado_badge.html" with estado=envio.estado %}
         </div>
 
         <dl class="text-sm space-y-3">
             <div>
-                <dt class="text-xs uppercase text-slate-500">Producto</dt>
-                <dd class="text-slate-300">{{ envio.producto.nombre }} ({{ envio.producto.categoria }})</dd>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Producto</dt>
+                <dd class="text-stone-600 dark:text-stone-300">{{ envio.producto.nombre }} ({{ envio.producto.categoria }})</dd>
             </div>
             <div>
-                <dt class="text-xs uppercase text-slate-500">Proveedor</dt>
-                <dd class="text-slate-300">{{ envio.proveedor.nombre }} · {{ envio.proveedor.pais }}</dd>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Proveedor</dt>
+                <dd class="text-stone-600 dark:text-stone-300">{{ envio.proveedor.nombre }} · {{ envio.proveedor.pais }}</dd>
             </div>
             <div>
-                <dt class="text-xs uppercase text-slate-500">Cliente</dt>
-                <dd class="text-slate-300">{{ envio.cliente.nombre }} · {{ envio.cliente.ciudad }}</dd>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Cliente</dt>
+                <dd class="text-stone-600 dark:text-stone-300">{{ envio.cliente.nombre }} · {{ envio.cliente.ciudad }}</dd>
             </div>
             <div>
-                <dt class="text-xs uppercase text-slate-500">Destino</dt>
-                <dd class="text-slate-300">{{ envio.destino }}</dd>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Destino</dt>
+                <dd class="text-stone-600 dark:text-stone-300">{{ envio.destino }}</dd>
             </div>
             <div>
-                <dt class="text-xs uppercase text-slate-500">Ubicación actual</dt>
-                <dd class="text-cyan-400">{{ envio.ubicacion_actual }}</dd>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Ubicación actual</dt>
+                <dd class="text-teal-600 dark:text-teal-400">{{ envio.ubicacion_actual }}</dd>
             </div>
             <div>
-                <dt class="text-xs uppercase text-slate-500">Peso total</dt>
-                <dd class="text-slate-300">{{ envio.peso_total_kg }} kg</dd>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Peso total</dt>
+                <dd class="text-stone-600 dark:text-stone-300">{{ envio.peso_total_kg }} kg</dd>
             </div>
             <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <dt class="text-xs uppercase text-slate-500">Fecha envío</dt>
-                    <dd class="text-slate-300">{{ envio.fecha_envio }}</dd>
+                    <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Fecha envío</dt>
+                    <dd class="text-stone-600 dark:text-stone-300">{{ envio.fecha_envio }}</dd>
                 </div>
                 <div>
-                    <dt class="text-xs uppercase text-slate-500">Entrega estimada</dt>
-                    <dd class="text-slate-300">{{ envio.fecha_estimada_entrega }}</dd>
+                    <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Entrega estimada</dt>
+                    <dd class="text-stone-600 dark:text-stone-300">{{ envio.fecha_estimada_entrega }}</dd>
                 </div>
             </div>
             {% if envio.fecha_real_entrega %}
             <div>
-                <dt class="text-xs uppercase text-slate-500">Entrega real</dt>
-                <dd class="text-emerald-400">{{ envio.fecha_real_entrega }}</dd>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Entrega real</dt>
+                <dd class="text-emerald-600 dark:text-emerald-400">{{ envio.fecha_real_entrega }}</dd>
             </div>
             {% endif %}
         </dl>
     </div>
 
     <!-- Historial de tracking -->
-    <div class="md:col-span-2 bg-slate-900 border border-slate-800 rounded-lg p-5">
-        <h2 class="text-sm font-semibold text-slate-300 mb-5">Historial de seguimiento</h2>
-        <ol class="relative border-l border-slate-800 ml-2">
+    <div class="md:col-span-2 bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-5">
+        <h2 class="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-5">Historial de seguimiento</h2>
+        <ol class="relative border-l border-stone-200 dark:border-stone-700 ml-2">
             {% for evento in eventos %}
             <li class="mb-6 ml-5">
-                <span class="absolute -left-1.5 flex h-3 w-3 rounded-full bg-cyan-500"></span>
-                <p class="text-sm text-slate-200">{{ evento.descripcion }}</p>
-                <p class="text-xs text-slate-500 mt-1">{{ evento.ubicacion }} · {{ evento.fecha_hora }}</p>
+                <span class="absolute -left-1.5 flex h-3 w-3 rounded-full bg-teal-500"></span>
+                <p class="text-sm text-stone-800 dark:text-stone-200">{{ evento.descripcion }}</p>
+                <p class="text-xs text-stone-500 dark:text-stone-500 mt-1">{{ evento.ubicacion }} · {{ evento.fecha_hora }}</p>
             </li>
             {% empty %}
-            <li class="ml-5 text-sm text-slate-500">Aún no hay eventos registrados para este envío.</li>
+            <li class="ml-5 text-sm text-stone-500">Aún no hay eventos registrados para este envío.</li>
             {% endfor %}
         </ol>
     </div>
