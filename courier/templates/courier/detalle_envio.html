@@ -4,7 +4,15 @@
 {% block header %}Tracking · {{ envio.codigo }}{% endblock %}
 
 {% block content %}
-<a href="{% url 'courier:lista_envios' %}" class="text-sm text-teal-600 dark:text-teal-400 hover:underline">&larr; Volver a envíos</a>
+<div class="flex items-center justify-between">
+    <a href="{% url 'courier:lista_envios' %}" class="text-sm text-teal-600 dark:text-teal-400 hover:underline">&larr; Volver a envíos</a>
+    {% if request.user.is_staff %}
+    <div class="text-sm space-x-3">
+        <a href="{% url 'courier:editar_envio' envio.id %}" class="text-teal-600 dark:text-teal-400 hover:underline">Editar</a>
+        <a href="{% url 'courier:eliminar_envio' envio.id %}" class="text-rose-600 dark:text-rose-400 hover:underline">Eliminar</a>
+    </div>
+    {% endif %}
+</div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-5">
     <!-- Info del envío -->

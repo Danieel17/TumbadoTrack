@@ -1,0 +1,22 @@
+{% extends "courier/base.html" %}
+
+{% block title %}Eliminar{% endblock %}
+{% block header %}Eliminar{% endblock %}
+
+{% block content %}
+<div class="max-w-lg bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-6">
+    <p class="text-sm text-stone-700 dark:text-stone-300 mb-6">
+        ¿Confirmas que quieres eliminar <span class="font-semibold">{{ objeto }}</span>?
+        Esta acción no se puede deshacer.
+    </p>
+    <form method="post" class="flex items-center gap-3">
+        {% csrf_token %}
+        <button type="submit"
+                class="bg-rose-600 hover:bg-rose-700 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">
+            Eliminar
+        </button>
+        <a href="{% if volver_args %}{% url volver_url volver_args.0 %}{% else %}{% url volver_url %}{% endif %}"
+           class="text-sm text-stone-500 dark:text-stone-400 hover:underline">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

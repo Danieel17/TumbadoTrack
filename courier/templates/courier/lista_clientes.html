@@ -4,6 +4,14 @@
 {% block header %}Clientes{% endblock %}
 
 {% block content %}
+{% if request.user.is_staff %}
+<div class="flex justify-end mb-4">
+    <a href="{% url 'courier:crear_cliente' %}"
+       class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-4 py-2 transition-colors">
+        + Nuevo cliente
+    </a>
+</div>
+{% endif %}
 <div class="bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg overflow-hidden">
     <table class="w-full text-sm">
         <thead>
@@ -13,6 +21,7 @@
                 <th class="px-5 py-3">Tipo</th>
                 <th class="px-5 py-3">Contacto</th>
                 <th class="px-5 py-3">Teléfono</th>
+                {% if request.user.is_staff %}<th class="px-5 py-3 text-right">Acciones</th>{% endif %}
             </tr>
         </thead>
         <tbody>
@@ -25,9 +34,15 @@
                 </td>
                 <td class="px-5 py-3 text-stone-500 dark:text-stone-400">{{ cliente.email_contacto }}</td>
                 <td class="px-5 py-3 text-stone-500 dark:text-stone-400">{{ cliente.telefono }}</td>
+                {% if request.user.is_staff %}
+                <td class="px-5 py-3 text-right space-x-3">
+                    <a href="{% url 'courier:editar_cliente' cliente.id %}" class="text-teal-600 dark:text-teal-400 hover:underline">Editar</a>
+                    <a href="{% url 'courier:eliminar_cliente' cliente.id %}" class="text-rose-600 dark:text-rose-400 hover:underline">Eliminar</a>
+                </td>
+                {% endif %}
             </tr>
             {% empty %}
-            <tr><td colspan="5" class="px-5 py-6 text-center text-stone-500">No hay clientes registrados.</td></tr>
+            <tr><td colspan="6" class="px-5 py-6 text-center text-stone-500">No hay clientes registrados.</td></tr>
             {% endfor %}
         </tbody>
     </table>

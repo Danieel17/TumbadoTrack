@@ -1,0 +1,40 @@
+{% extends "courier/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+{% block header %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-6">
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {% for field in form %}
+        <div>
+            {% if field.field.widget.input_type == "checkbox" %}
+            <label class="flex items-center gap-2 text-sm text-stone-700 dark:text-stone-300">
+                {{ field }}
+                {{ field.label }}
+            </label>
+            {% else %}
+            <label for="{{ field.id_for_label }}" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">{{ field.label }}</label>
+            {{ field }}
+            {% endif %}
+            {% if field.help_text %}
+            <p class="mt-1 text-xs text-stone-400 dark:text-stone-500">{{ field.help_text }}</p>
+            {% endif %}
+            {% for error in field.errors %}
+            <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit"
+                    class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">
+                Guardar
+            </button>
+            <a href="{% if volver_args %}{% url volver_url volver_args.0 %}{% else %}{% url volver_url %}{% endif %}"
+               class="text-sm text-stone-500 dark:text-stone-400 hover:underline">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

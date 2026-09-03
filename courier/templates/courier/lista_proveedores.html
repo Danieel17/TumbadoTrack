@@ -4,6 +4,14 @@
 {% block header %}Proveedores{% endblock %}
 
 {% block content %}
+{% if request.user.is_staff %}
+<div class="flex justify-end mb-4">
+    <a href="{% url 'courier:crear_proveedor' %}"
+       class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-4 py-2 transition-colors">
+        + Nuevo proveedor
+    </a>
+</div>
+{% endif %}
 <div class="bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg overflow-hidden">
     <table class="w-full text-sm">
         <thead>
@@ -14,6 +22,7 @@
                 <th class="px-5 py-3">Teléfono</th>
                 <th class="px-5 py-3">Puntualidad</th>
                 <th class="px-5 py-3">Estado</th>
+                {% if request.user.is_staff %}<th class="px-5 py-3 text-right">Acciones</th>{% endif %}
             </tr>
         </thead>
         <tbody>
@@ -31,9 +40,15 @@
                         <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-400">Inactivo</span>
                     {% endif %}
                 </td>
+                {% if request.user.is_staff %}
+                <td class="px-5 py-3 text-right space-x-3">
+                    <a href="{% url 'courier:editar_proveedor' proveedor.id %}" class="text-teal-600 dark:text-teal-400 hover:underline">Editar</a>
+                    <a href="{% url 'courier:eliminar_proveedor' proveedor.id %}" class="text-rose-600 dark:text-rose-400 hover:underline">Eliminar</a>
+                </td>
+                {% endif %}
             </tr>
             {% empty %}
-            <tr><td colspan="6" class="px-5 py-6 text-center text-stone-500">No hay proveedores registrados.</td></tr>
+            <tr><td colspan="7" class="px-5 py-6 text-center text-stone-500">No hay proveedores registrados.</td></tr>
             {% endfor %}
         </tbody>
     </table>

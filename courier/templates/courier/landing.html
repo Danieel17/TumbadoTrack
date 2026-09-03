@@ -55,34 +55,40 @@
         </svg>
     </button>
 
-    <!-- Header -->
-    <header class="px-6 sm:px-12 py-6 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <img src="{% static 'courier/img/logo.png' %}" alt="TumbadoTrack" class="h-10 w-10 object-contain">
-            <span class="font-brand text-lg font-bold tracking-tight text-teal-700 dark:text-teal-300">TumbadoTrack</span>
-        </div>
-        <a href="{% url 'courier:login' %}"
-           class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">
-            Iniciar sesión
-        </a>
-    </header>
+    <!-- Hero con foto de fondo de concierto -->
+    <div class="relative overflow-hidden">
+        <img src="{% static 'courier/img/hero-concierto.jpg' %}" alt=""
+             class="absolute inset-0 h-full w-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-stone-900/80 via-stone-900/75 to-stone-50 dark:to-stone-900"></div>
 
-    <!-- Hero -->
-    <section class="px-6 sm:px-12 py-16 sm:py-24 max-w-5xl mx-auto text-center">
-        <p class="text-xs uppercase tracking-widest text-teal-600 dark:text-teal-400 font-semibold mb-4">Music Pro Company · Courier</p>
-        <h1 class="font-brand text-3xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-100 mb-6">
-            Seguimiento logístico para el equipo del <span class="text-teal-500">Tour 2026</span> de Natanael Cano
-        </h1>
-        <p class="text-base sm:text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto mb-10">
-            TumbadoTrack centraliza el transporte de instrumentos, sonido e iluminación desde proveedores
-            internacionales hasta cada recinto del tour por México y Estados Unidos: envíos, estados,
-            proveedores y clientes en un solo lugar.
-        </p>
-        <a href="{% url 'courier:login' %}"
-           class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-medium rounded-md px-8 py-3 transition-colors">
-            Entrar al sistema
-        </a>
-    </section>
+        <!-- Header -->
+        <header class="relative px-6 sm:px-12 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="{% static 'courier/img/logo.png' %}" alt="TumbadoTrack" class="h-10 w-10 object-contain">
+                <span class="font-brand text-lg font-bold tracking-tight text-white">TumbadoTrack</span>
+            </div>
+            <a href="{% url 'courier:login' %}"
+               class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">
+                Iniciar sesión
+            </a>
+        </header>
+
+        <section class="relative px-6 sm:px-12 py-16 sm:py-28 max-w-5xl mx-auto text-center">
+            <p class="text-xs uppercase tracking-widest text-teal-300 font-semibold mb-4">Music Pro Company · Courier</p>
+            <h1 class="font-brand text-3xl sm:text-5xl font-bold tracking-tight text-white mb-6">
+                Seguimiento logístico para el equipo del <span class="text-teal-400">Tour 2026</span> de Natanael Cano
+            </h1>
+            <p class="text-base sm:text-lg text-stone-200 max-w-2xl mx-auto mb-10">
+                TumbadoTrack centraliza el transporte de instrumentos, sonido e iluminación desde proveedores
+                internacionales hasta cada recinto del tour por México y Estados Unidos: envíos, estados,
+                proveedores y clientes en un solo lugar.
+            </p>
+            <a href="{% url 'courier:login' %}"
+               class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-medium rounded-md px-8 py-3 transition-colors">
+                Entrar al sistema
+            </a>
+        </section>
+    </div>
 
     <!-- Features -->
     <section class="px-6 sm:px-12 pb-20 max-w-5xl mx-auto grid gap-6 sm:grid-cols-3">
