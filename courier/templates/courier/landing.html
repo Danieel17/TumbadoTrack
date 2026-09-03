@@ -55,22 +55,35 @@
         </svg>
     </button>
 
-    <!-- Hero con collage de fotos de fondo -->
-    <div class="relative overflow-hidden min-h-[640px] flex flex-col">
-        <!-- Mosaico de fotos -->
-        <div class="absolute inset-0 grid grid-cols-4 grid-rows-2 gap-0.5 sm:gap-1">
-            <img src="{% static 'courier/img/collage/collage-1.jpg' %}" alt="" class="h-full w-full object-cover">
-            <img src="{% static 'courier/img/collage/collage-2.jpg' %}" alt="" class="h-full w-full object-cover">
-            <img src="{% static 'courier/img/collage/collage-5.webp' %}" alt="" class="h-full w-full object-cover">
-            <img src="{% static 'courier/img/collage/collage-7.png' %}" alt="" class="h-full w-full object-cover">
-            <img src="{% static 'courier/img/collage/collage-4.jpg' %}" alt="" class="h-full w-full object-cover">
-            <img src="{% static 'courier/img/collage/collage-6.webp' %}" alt="" class="h-full w-full object-cover">
-            <img src="{% static 'courier/img/collage/collage-3.jpg' %}" alt="" class="h-full w-full object-cover">
-            <img src="{% static 'courier/img/collage/collage-1.jpg' %}" alt="" class="h-full w-full object-cover">
+    <!-- Hero con collage abstracto de fotos de fondo -->
+    <div class="relative overflow-hidden min-h-[680px] flex flex-col bg-stone-950">
+        <!-- Mood board: fotos dispersas, rotadas y de distinto tamaño -->
+        <div class="absolute inset-0">
+            <img src="{% static 'courier/img/collage/collage-9.jpg' %}" alt=""
+                 class="absolute top-[2%] left-[3%] w-40 sm:w-56 aspect-square object-cover rounded-2xl shadow-2xl -rotate-6 opacity-80">
+            <img src="{% static 'courier/img/collage/collage-1.jpg' %}" alt=""
+                 class="absolute top-[6%] left-[27%] w-28 sm:w-40 aspect-[3/4] object-cover rounded-2xl shadow-2xl rotate-3 opacity-70">
+            <img src="{% static 'courier/img/collage/collage-5.webp' %}" alt=""
+                 class="absolute top-[-4%] right-[26%] w-36 sm:w-52 aspect-[4/5] object-cover rounded-2xl shadow-2xl rotate-6 opacity-80">
+            <img src="{% static 'courier/img/collage/collage-7.png' %}" alt=""
+                 class="absolute top-[4%] right-[2%] w-44 sm:w-64 aspect-video object-cover rounded-2xl shadow-2xl -rotate-3 opacity-75">
+            <img src="{% static 'courier/img/collage/collage-11.jpg' %}" alt=""
+                 class="absolute bottom-[4%] left-[1%] w-32 sm:w-48 aspect-[3/4] object-cover rounded-2xl shadow-2xl rotate-6 opacity-75">
+            <img src="{% static 'courier/img/collage/collage-10.jpg' %}" alt=""
+                 class="absolute bottom-[-2%] left-[24%] w-40 sm:w-56 aspect-video object-cover rounded-2xl shadow-2xl -rotate-6 opacity-70">
+            <img src="{% static 'courier/img/collage/collage-8.jpg' %}" alt=""
+                 class="absolute bottom-[8%] right-[28%] w-24 sm:w-36 aspect-square object-cover rounded-2xl shadow-2xl rotate-12 opacity-70">
+            <img src="{% static 'courier/img/collage/collage-6.webp' %}" alt=""
+                 class="absolute bottom-[-4%] right-[1%] w-36 sm:w-52 aspect-[3/4] object-cover rounded-2xl shadow-2xl -rotate-6 opacity-80">
+            <img src="{% static 'courier/img/collage/collage-12.jpg' %}" alt=""
+                 class="absolute top-[38%] left-[10%] w-28 sm:w-40 aspect-video object-cover rounded-2xl shadow-2xl rotate-3 opacity-60 hidden sm:block">
+            <img src="{% static 'courier/img/collage/collage-3.jpg' %}" alt=""
+                 class="absolute top-[40%] right-[9%] w-28 sm:w-40 aspect-[3/4] object-cover rounded-2xl shadow-2xl -rotate-6 opacity-60 hidden sm:block">
         </div>
-        <!-- Overlay oscuro para legibilidad del texto -->
-        <div class="absolute inset-0 bg-stone-900/80"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/60 to-stone-50 dark:to-stone-900"></div>
+        <!-- Overlay oscuro para legibilidad del texto: más oscuro al centro, fotos visibles en los bordes -->
+        <div class="absolute inset-0 bg-stone-950/35"></div>
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(23,24,33,0.92) 0%, rgba(23,24,33,0.55) 60%, rgba(23,24,33,0.25) 100%);"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-stone-950/30 to-stone-50 dark:to-stone-900"></div>
 
         <!-- Header -->
         <header class="relative px-6 sm:px-12 py-6 flex items-center justify-between">

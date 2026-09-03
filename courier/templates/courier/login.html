@@ -44,10 +44,16 @@
         };
     </script>
 </head>
-<body class="bg-stone-100 text-stone-800 dark:bg-stone-900 dark:text-stone-200 min-h-screen flex items-center justify-center px-4 transition-colors">
+<body class="relative text-stone-800 dark:text-stone-200 min-h-screen flex items-center justify-center px-4 transition-colors">
+
+    <!-- Fondo: misma estética que la landing (foto + overlay oscuro) -->
+    <img src="{% static 'courier/img/hero-login.jpg' %}" alt=""
+         class="fixed inset-0 h-full w-full object-cover -z-20">
+    <div class="fixed inset-0 bg-stone-950/80 -z-10"></div>
+    <div class="fixed inset-0 -z-10" style="background: radial-gradient(ellipse at center, rgba(23,24,33,0.35) 0%, rgba(23,24,33,0.85) 75%);"></div>
 
     <button id="theme-toggle" type="button"
-            class="fixed top-5 right-5 p-2 rounded-full border border-stone-200 dark:border-stone-700 text-stone-500 dark:text-stone-300 hover:text-teal-500 dark:hover:text-teal-400 hover:border-teal-400 transition-colors"
+            class="fixed top-5 right-5 p-2 rounded-full border border-white/20 text-stone-200 hover:text-teal-400 hover:border-teal-400 transition-colors bg-stone-900/40 backdrop-blur"
             aria-label="Cambiar tema claro/oscuro">
         <svg id="icon-sun" class="hidden dark:block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21m9-9h-1.5m-15 0H3m15.364-6.364-1.06 1.06M6.696 17.304l-1.06 1.06m0-12.728 1.06 1.06M17.304 17.304l1.06 1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z" />
@@ -57,14 +63,14 @@
         </svg>
     </button>
 
-    <div class="w-full max-w-md">
+    <div class="relative w-full max-w-md">
         <div class="flex flex-col items-center mb-6">
             <img src="{% static 'courier/img/logo.png' %}" alt="TumbadoTrack" class="h-16 w-16 object-contain mb-3">
-            <p class="font-brand text-2xl font-bold tracking-tight text-teal-700 dark:text-teal-300">TumbadoTrack</p>
-            <p class="text-xs text-stone-500 dark:text-stone-400">Music Pro Company · Courier</p>
+            <p class="font-brand text-2xl font-bold tracking-tight text-white">TumbadoTrack</p>
+            <p class="text-xs text-stone-300">Music Pro Company · Courier</p>
         </div>
 
-        <div class="bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-8">
+        <div class="bg-white/95 border border-stone-200 dark:bg-stone-800/95 dark:border-stone-700 rounded-lg p-8 backdrop-blur shadow-2xl">
             <h1 class="text-xl font-semibold text-center text-stone-900 dark:text-stone-100 mb-6">Iniciar sesión</h1>
 
             {% if error %}
