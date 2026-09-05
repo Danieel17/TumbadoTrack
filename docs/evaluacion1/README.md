@@ -3,6 +3,12 @@
 Caso seleccionado: **Music Pro Company · Transporte y Logística — Courier (Proveedor ↔ Cliente)**
 (línea de desarrollo "Sistema de Transporte y Despachos" del caso semestral, aplicada al Tour 2026 de Natanael Cano).
 
+## 0. Investigación de soluciones similares
+
+Ver [investigacion-soluciones-similares.md](investigacion-soluciones-similares.md): revisión de portales
+de tracking (FedEx/DHL/UPS), sistemas de gestión de flotas (TMS) y paneles admin tipo e-commerce, con
+las oportunidades de diferenciación adoptadas en TumbadoTrack.
+
 ## 1. Diagrama de flujo
 
 Representa la navegación completa del sitio y las bifurcaciones según el rol del usuario
