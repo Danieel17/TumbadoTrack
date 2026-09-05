@@ -1,0 +1,26 @@
+flowchart TD
+    A(["Visitante"]) --> B["Landing pública<br/>( / )<br/>Presentación de TumbadoTrack"]
+    B --> C["Login<br/>( /login/ )"]
+    C -->|"credenciales inválidas"| C
+    C -->|"credenciales válidas"| D["Dashboard<br/>( /dashboard/ )<br/>Estadísticas generales"]
+
+    D --> E["Envíos<br/>( /envios/ )<br/>Listado + filtro por estado"]
+    E --> F["Detalle de Envío<br/>( /envios/id/ )<br/>Tracking y eventos"]
+    D --> G["Proveedores<br/>( /proveedores/ )"]
+    D --> H["Clientes<br/>( /clientes/ )"]
+    D --> I{"¿Es administrador?<br/>is_staff"}
+
+    I -->|"No (Cliente)"| J["Solo lectura:<br/>Envíos, Proveedores, Clientes"]
+    I -->|"Sí (Admin)"| K["Usuarios<br/>( /usuarios/ )<br/>CRUD de cuentas"]
+
+    K --> K1["Crear usuario"]
+    K --> K2["Editar usuario"]
+    K --> K3["Eliminar usuario"]
+
+    I -->|"Sí (Admin)"| L["CRUD habilitado en:<br/>Envíos / Proveedores / Clientes"]
+    L --> L1["Crear"]
+    L --> L2["Editar"]
+    L --> L3["Eliminar"]
+
+    D --> M["Cerrar sesión<br/>( /logout/ )"]
+    M --> B
