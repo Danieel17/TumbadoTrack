@@ -57,11 +57,18 @@ class EnvioForm(EstiloFormMixin, forms.ModelForm):
 class UsuarioCreationForm(UserCreationForm):
     """Alta de usuarios desde el panel de administración del sitio (no el /admin/ de Django)."""
 
-    email = forms.EmailField(required=False)
+    email = forms.EmailField(required=False, label="Correo electrónico")
 
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ["username", "first_name", "last_name", "email", "is_staff", "is_active"]
+        labels = {
+            "username": "Usuario",
+            "first_name": "Nombre",
+            "last_name": "Apellido",
+            "is_staff": "Administrador",
+            "is_active": "Activo",
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -81,6 +88,14 @@ class UsuarioEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name", "email", "is_staff", "is_active"]
+        labels = {
+            "username": "Usuario",
+            "first_name": "Nombre",
+            "last_name": "Apellido",
+            "email": "Correo electrónico",
+            "is_staff": "Administrador",
+            "is_active": "Activo",
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

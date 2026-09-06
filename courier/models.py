@@ -3,10 +3,10 @@ from django.db import models
 
 class Proveedor(models.Model):
     nombre = models.CharField(max_length=150)
-    pais = models.CharField(max_length=100)
-    email_contacto = models.EmailField()
-    telefono = models.CharField(max_length=30)
-    tasa_puntualidad = models.DecimalField(max_digits=4, decimal_places=1)
+    pais = models.CharField(max_length=100, verbose_name="País")
+    email_contacto = models.EmailField(verbose_name="Correo de contacto")
+    telefono = models.CharField(max_length=30, verbose_name="Teléfono")
+    tasa_puntualidad = models.DecimalField(max_digits=4, decimal_places=1, verbose_name="Tasa de puntualidad (%)")
     activo = models.BooleanField(default=True)
 
     class Meta:
@@ -27,8 +27,8 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length=150)
     ciudad = models.CharField(max_length=150)
     tipo = models.CharField(max_length=20, choices=TIPO_CHOICES)
-    email_contacto = models.EmailField()
-    telefono = models.CharField(max_length=30)
+    email_contacto = models.EmailField(verbose_name="Correo de contacto")
+    telefono = models.CharField(max_length=30, verbose_name="Teléfono")
 
     class Meta:
         ordering = ["nombre"]
@@ -50,7 +50,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=200)
     sku = models.CharField(max_length=50, unique=True)
     categoria = models.CharField(max_length=20, choices=CATEGORIA_CHOICES)
-    peso_kg = models.DecimalField(max_digits=7, decimal_places=1)
+    peso_kg = models.DecimalField(max_digits=7, decimal_places=1, verbose_name="Peso (kg)")
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, related_name="productos")
 
     class Meta:
@@ -69,7 +69,7 @@ class Bodega(models.Model):
     ]
 
     nombre = models.CharField(max_length=150)
-    ubicacion = models.CharField(max_length=150)
+    ubicacion = models.CharField(max_length=150, verbose_name="Ubicación")
     tipo = models.CharField(max_length=20, choices=TIPO_CHOICES)
     capacidad = models.PositiveIntegerField()
 
@@ -93,17 +93,17 @@ class Envio(models.Model):
         (ESTADO_ENTREGADO, "Entregado"),
     ]
 
-    codigo = models.CharField(max_length=30, unique=True)
+    codigo = models.CharField(max_length=30, unique=True, verbose_name="Código")
     producto = models.ForeignKey(Producto, on_delete=models.PROTECT, related_name="envios")
     proveedor = models.ForeignKey(Proveedor, on_delete=models.PROTECT, related_name="envios")
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, related_name="envios")
     destino = models.CharField(max_length=200)
-    peso_total_kg = models.DecimalField(max_digits=7, decimal_places=1)
+    peso_total_kg = models.DecimalField(max_digits=7, decimal_places=1, verbose_name="Peso total (kg)")
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default=ESTADO_PREPARANDO)
-    fecha_envio = models.DateField()
-    fecha_estimada_entrega = models.DateField()
-    fecha_real_entrega = models.DateField(null=True, blank=True)
-    ubicacion_actual = models.CharField(max_length=200)
+    fecha_envio = models.DateField(verbose_name="Fecha de envío")
+    fecha_estimada_entrega = models.DateField(verbose_name="Fecha estimada de entrega")
+    fecha_real_entrega = models.DateField(null=True, blank=True, verbose_name="Fecha real de entrega")
+    ubicacion_actual = models.CharField(max_length=200, verbose_name="Ubicación actual")
 
     class Meta:
         ordering = ["-fecha_envio"]
@@ -114,9 +114,9 @@ class Envio(models.Model):
 
 class SeguimientoEvento(models.Model):
     envio = models.ForeignKey(Envio, on_delete=models.CASCADE, related_name="eventos")
-    descripcion = models.CharField(max_length=255)
-    ubicacion = models.CharField(max_length=200)
-    fecha_hora = models.DateTimeField()
+    descripcion = models.CharField(max_length=255, verbose_name="Descripción")
+    ubicacion = models.CharField(max_length=200, verbose_name="Ubicación")
+    fecha_hora = models.DateTimeField(verbose_name="Fecha y hora")
 
     class Meta:
         ordering = ["fecha_hora"]
