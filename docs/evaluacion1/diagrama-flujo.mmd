@@ -1,8 +1,9 @@
 flowchart TD
-    A(["Visitante"]) --> B["Landing pública<br/>( / )<br/>Presentación de TumbadoTrack"]
-    B --> C["Login<br/>( /login/ )"]
-    C -->|"credenciales inválidas"| C
-    C -->|"credenciales válidas"| D["Dashboard<br/>( /dashboard/ )<br/>Estadísticas generales"]
+    A(["Inicio<br/>Visitante"]) --> B["Landing pública<br/>( / )<br/>Presentación de TumbadoTrack"]
+    B --> C["Login<br/>( /login/ )<br/>Ingresa usuario y contraseña"]
+    C --> V{"¿Credenciales<br/>válidas?"}
+    V -->|"No"| C
+    V -->|"Sí"| D["Dashboard<br/>( /dashboard/ )<br/>Estadísticas generales"]
 
     D --> E["Envíos<br/>( /envios/ )<br/>Listado + filtro por estado"]
     E --> F["Detalle de Envío<br/>( /envios/id/ )<br/>Tracking y eventos"]
@@ -23,4 +24,5 @@ flowchart TD
     L --> L3["Eliminar"]
 
     D --> M["Cerrar sesión<br/>( /logout/ )"]
-    M --> B
+    M --> Z(["Fin<br/>Vuelve a la landing"])
+    Z -.-> B
