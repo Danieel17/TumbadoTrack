@@ -43,7 +43,7 @@ class EnvioForm(EstiloFormMixin, forms.ModelForm):
     class Meta:
         model = Envio
         fields = [
-            "codigo", "producto", "proveedor", "cliente", "destino",
+            "codigo", "producto", "proveedor", "cliente", "vehiculo", "conductor", "destino",
             "peso_total_kg", "estado", "fecha_envio", "fecha_estimada_entrega",
             "fecha_real_entrega", "ubicacion_actual",
         ]
