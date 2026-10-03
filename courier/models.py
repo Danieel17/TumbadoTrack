@@ -98,6 +98,8 @@ class Vehiculo(models.Model):
 
     class Meta:
         ordering = ["patente"]
+        verbose_name = "Vehículo"
+        verbose_name_plural = "Vehículos"
 
     def __str__(self):
         return self.patente
@@ -113,6 +115,8 @@ class Conductor(models.Model):
 
     class Meta:
         ordering = ["nombre"]
+        verbose_name = "Conductor"
+        verbose_name_plural = "Conductores"
 
     def __str__(self):
         return self.nombre

@@ -1,0 +1,98 @@
+erDiagram
+    PROVEEDOR ||--o{ PRODUCTO : "provee"
+    PROVEEDOR ||--o{ VEHICULO : "posee"
+    PROVEEDOR ||--o{ ENVIO : "despacha"
+    CLIENTE ||--o{ ENVIO : "recibe"
+    PRODUCTO ||--o{ ENVIO : "es transportado en"
+    VEHICULO ||--o{ CONDUCTOR : "es conducido por"
+    VEHICULO |o--o{ ENVIO : "transporta"
+    CONDUCTOR |o--o{ ENVIO : "conduce"
+    ENVIO ||--o{ SEGUIMIENTOEVENTO : "registra"
+    ENVIO ||--o{ INCIDENCIA : "presenta"
+    ENVIO ||--|| COMPROBANTEENTREGA : "genera"
+
+    PROVEEDOR {
+        int id PK
+        string nombre
+        string pais
+        string email_contacto
+        string telefono
+        decimal tasa_puntualidad
+        bool activo
+    }
+    CLIENTE {
+        int id PK
+        string nombre
+        string ciudad
+        string tipo
+        string email_contacto
+        string telefono
+    }
+    PRODUCTO {
+        int id PK
+        string nombre
+        string sku
+        string categoria
+        decimal peso_kg
+        int proveedor_id FK
+    }
+    BODEGA {
+        int id PK
+        string nombre
+        string ubicacion
+        string tipo
+        int capacidad
+    }
+    VEHICULO {
+        int id PK
+        string patente
+        string tipo
+        decimal capacidad_kg
+        int proveedor_id FK
+    }
+    CONDUCTOR {
+        int id PK
+        string nombre
+        string licencia
+        string telefono
+        int vehiculo_id FK
+    }
+    ENVIO {
+        int id PK
+        string codigo
+        int producto_id FK
+        int proveedor_id FK
+        int cliente_id FK
+        int vehiculo_id FK
+        int conductor_id FK
+        string destino
+        decimal peso_total_kg
+        string estado
+        date fecha_envio
+        date fecha_estimada_entrega
+        date fecha_real_entrega
+        string ubicacion_actual
+    }
+    SEGUIMIENTOEVENTO {
+        int id PK
+        int envio_id FK
+        string descripcion
+        string ubicacion
+        datetime fecha_hora
+    }
+    INCIDENCIA {
+        int id PK
+        int envio_id FK
+        string tipo
+        string descripcion
+        datetime fecha_hora
+    }
+    COMPROBANTEENTREGA {
+        int id PK
+        int envio_id FK
+        string nombre_receptor
+        string firma_url
+        string foto_url
+        string codigo_escaneado
+        datetime fecha_hora
+    }
