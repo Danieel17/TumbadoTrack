@@ -11,6 +11,8 @@ class Proveedor(models.Model):
 
     class Meta:
         ordering = ["nombre"]
+        verbose_name = "Proveedor"
+        verbose_name_plural = "Proveedores"
 
     def __str__(self):
         return self.nombre
@@ -32,6 +34,8 @@ class Cliente(models.Model):
 
     class Meta:
         ordering = ["nombre"]
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
 
     def __str__(self):
         return self.nombre
@@ -55,6 +59,8 @@ class Producto(models.Model):
 
     class Meta:
         ordering = ["nombre"]
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos"
 
     def __str__(self):
         return self.nombre
@@ -154,6 +160,8 @@ class Envio(models.Model):
 
     class Meta:
         ordering = ["-fecha_envio"]
+        verbose_name = "Envío"
+        verbose_name_plural = "Envíos"
 
     def __str__(self):
         return self.codigo
