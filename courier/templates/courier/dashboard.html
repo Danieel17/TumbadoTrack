@@ -34,10 +34,11 @@
     </div>
 </div>
 
-<div class="bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg">
+<div class="bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg overflow-hidden">
     <div class="px-5 py-4 border-b border-stone-200 dark:border-stone-700">
         <h2 class="text-sm font-semibold text-stone-700 dark:text-stone-300">Envíos recientes</h2>
     </div>
+  <div class="overflow-x-auto">
     <table class="w-full text-sm">
         <thead>
             <tr class="text-left text-xs uppercase text-stone-500 dark:text-stone-400 border-b border-stone-200 dark:border-stone-700">
@@ -62,5 +63,6 @@
             {% endfor %}
         </tbody>
     </table>
+  </div>
 </div>
 {% endblock %}

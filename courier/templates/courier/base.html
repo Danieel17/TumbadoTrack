@@ -87,18 +87,30 @@
 </head>
 <body class="bg-stone-100 text-stone-800 dark:bg-stone-900 dark:text-stone-200 min-h-screen flex transition-colors">
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 shrink-0 bg-white border-r border-stone-200 dark:bg-stone-800 dark:border-stone-700 flex flex-col transition-all duration-200">
-        <a href="{% url 'courier:dashboard' %}"
-           class="px-5 py-5 border-b border-stone-200 dark:border-stone-700 flex items-center gap-3 hover:bg-stone-50 dark:hover:bg-stone-700/40 transition-colors">
-            <img src="{% static 'courier/img/logo.png' %}" alt="TumbadoTrack" class="h-10 w-10 object-contain shrink-0">
-            <div class="sidebar-label min-w-0">
-                <p class="font-brand text-lg font-bold tracking-tight text-teal-700 dark:text-teal-300 leading-tight truncate">TumbadoTrack</p>
-                <p class="text-[11px] text-stone-500 dark:text-stone-400 truncate">Music Pro Company · Courier</p>
-            </div>
-        </a>
+    <!-- Fondo oscuro detrás del sidebar en móvil (se muestra solo mientras el menú está abierto) -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-stone-950/60 z-30 hidden md:hidden"></div>
 
-        <div class="px-3 pt-3">
+    <!-- Sidebar: en móvil es un panel deslizable (off-canvas); desde md: en adelante va fijo en la columna -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 shrink-0 bg-white border-r border-stone-200 dark:bg-stone-800 dark:border-stone-700 flex flex-col transition-transform md:transition-all duration-200 -translate-x-full md:translate-x-0">
+        <div class="px-5 py-5 border-b border-stone-200 dark:border-stone-700 flex items-center gap-3">
+            <a href="{% url 'courier:dashboard' %}"
+               class="flex-1 min-w-0 flex items-center gap-3 -m-2 p-2 rounded-md hover:bg-stone-50 dark:hover:bg-stone-700/40 transition-colors">
+                <img src="{% static 'courier/img/logo.png' %}" alt="TumbadoTrack" class="h-10 w-10 object-contain shrink-0">
+                <div class="sidebar-label min-w-0">
+                    <p class="font-brand text-lg font-bold tracking-tight text-teal-700 dark:text-teal-300 leading-tight truncate">TumbadoTrack</p>
+                    <p class="text-[11px] text-stone-500 dark:text-stone-400 truncate">Music Pro Company · Courier</p>
+                </div>
+            </a>
+            <button id="sidebar-close" type="button"
+                    class="md:hidden shrink-0 p-2 rounded-md text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                    aria-label="Cerrar menú">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="hidden md:block px-3 pt-3">
             <button id="sidebar-toggle" type="button"
                     class="nav-link w-full flex items-center gap-3 px-3 py-2 rounded-md text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
                     aria-label="Colapsar u expandir el menú">
@@ -169,9 +181,19 @@
     </aside>
 
     <!-- Contenido principal -->
-    <div class="flex-1 flex flex-col">
-        <header class="border-b border-stone-200 dark:border-stone-700 px-8 py-4 flex items-center justify-between">
-            <h1 class="text-lg font-semibold text-stone-900 dark:text-stone-100">{% block header %}{% endblock %}</h1>
+    <div class="flex-1 flex flex-col min-w-0">
+        <header class="border-b border-stone-200 dark:border-stone-700 px-4 sm:px-8 py-4 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <!-- Botón hamburguesa: abre el menú en móvil, oculto desde md: -->
+                <button id="sidebar-open" type="button"
+                        class="md:hidden shrink-0 p-2 -ml-2 rounded-md text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                        aria-label="Abrir menú">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                    </svg>
+                </button>
+                <h1 class="text-lg font-semibold text-stone-900 dark:text-stone-100 truncate">{% block header %}{% endblock %}</h1>
+            </div>
 
             <!-- Botón de cambio de tema claro/oscuro -->
             <button id="theme-toggle" type="button"
@@ -187,7 +209,7 @@
                 </svg>
             </button>
         </header>
-        <main class="flex-1 px-8 py-6">
+        <main class="flex-1 px-4 sm:px-8 py-6 min-w-0 overflow-x-hidden">
             {% if messages %}
             <div class="mb-4 space-y-2">
                 {% for message in messages %}
@@ -212,24 +234,42 @@
 
         (function () {
             var sidebar = document.getElementById('sidebar');
+            var backdrop = document.getElementById('sidebar-backdrop');
             var toggleBtn = document.getElementById('sidebar-toggle');
+            var openBtn = document.getElementById('sidebar-open');
+            var closeBtn = document.getElementById('sidebar-close');
             var labels = document.querySelectorAll('.sidebar-label');
             var links = document.querySelectorAll('.nav-link');
 
+            // Colapsar a solo íconos: únicamente aplica desde md: en adelante (escritorio).
             function applyState(collapsed) {
-                sidebar.classList.toggle('w-20', collapsed);
-                sidebar.classList.toggle('w-64', !collapsed);
+                sidebar.classList.toggle('md:w-20', collapsed);
                 labels.forEach(function (el) { el.classList.toggle('is-collapsed', collapsed); });
                 links.forEach(function (el) { el.classList.toggle('justify-center', collapsed); });
             }
 
             toggleBtn.addEventListener('click', function () {
-                var collapsed = !sidebar.classList.contains('w-20');
+                var collapsed = !sidebar.classList.contains('md:w-20');
                 applyState(collapsed);
                 localStorage.setItem('tumbadotrack-sidebar', collapsed ? 'collapsed' : 'expanded');
             });
 
             applyState(localStorage.getItem('tumbadotrack-sidebar') === 'collapsed');
+
+            // Menú deslizable en móvil: abre/cierra el sidebar como panel off-canvas.
+            function openMobileMenu() {
+                sidebar.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            }
+
+            function closeMobileMenu() {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+
+            openBtn.addEventListener('click', openMobileMenu);
+            closeBtn.addEventListener('click', closeMobileMenu);
+            backdrop.addEventListener('click', closeMobileMenu);
         })();
 
         // Anima de 0 hasta el valor real cualquier número marcado con
