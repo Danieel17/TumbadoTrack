@@ -49,19 +49,24 @@ Historial en `courier/migrations/`:
 
 ## 5. Datos ficticios con Faker
 
-Comando `courier/management/commands/generar_datos_faker.py`:
+Comando `courier/management/commands/generar_datos_faker.py`, escrito con el mismo formato visto
+en clases con el profesor (carpeta `SISTEMA/automotora_basica/management/commands/seed_vehiculos.py`):
+`class Command(BaseCommand)` con `help`, `def handle(self, *args, **kwargs):`, listas de opciones
+declaradas arriba, bucles `for i in range(n):` con `Modelo.objects.create(...)` directo (sin
+`@transaction.atomic`, sin `get_or_create`, sin argumentos por línea de comandos), y un único
+mensaje final con `self.stdout.write(self.style.SUCCESS(...))`.
 
 ```bash
 python manage.py seed_datos          # datos curados del caso (Tour Natanael Cano)
-python manage.py generar_datos_faker --cantidad 15   # datos ficticios con Faker
+python manage.py generar_datos_faker  # datos ficticios con Faker
 ```
 
 Genera proveedores, clientes, vehículos, conductores y envíos (con sus eventos, incidencias y
-comprobantes de entrega) usando la librería `Faker`, verificados en base de datos:
+comprobantes de entrega) usando la librería `Faker`, verificados en base de datos. Como el comando
+no usa `get_or_create` (igual que el ejemplo de clases), cada ejecución agrega registros nuevos:
 
 ```
-Proveedor: 10   Cliente: 12   Vehiculo: 6   Conductor: 6
-Envio: 21   SeguimientoEvento: 32   Incidencia: 9   ComprobanteEntrega: 5
+Proveedor: 15   Cliente: 18   Vehiculo: 12   Conductor: 12   Envio: 36
 ```
 
 ## 6. Django Admin
