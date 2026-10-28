@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Cliente, Envio, Proveedor
+from .models import Cliente, Conductor, Envio, Proveedor, Vehiculo
 
 TEXT_INPUT_CLASSES = (
     "w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 "
@@ -37,6 +37,18 @@ class ClienteForm(EstiloFormMixin, forms.ModelForm):
     class Meta:
         model = Cliente
         fields = ["nombre", "ciudad", "tipo", "email_contacto", "telefono"]
+
+
+class VehiculoForm(EstiloFormMixin, forms.ModelForm):
+    class Meta:
+        model = Vehiculo
+        fields = ["patente", "tipo", "capacidad_kg", "proveedor"]
+
+
+class ConductorForm(EstiloFormMixin, forms.ModelForm):
+    class Meta:
+        model = Conductor
+        fields = ["nombre", "licencia", "telefono", "vehiculo"]
 
 
 class EnvioForm(EstiloFormMixin, forms.ModelForm):

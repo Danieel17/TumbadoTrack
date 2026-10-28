@@ -7,8 +7,16 @@ from django.db.models import ProtectedError
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import ClienteForm, EnvioForm, ProveedorForm, UsuarioCreationForm, UsuarioEditForm
-from .models import Cliente, Envio, Proveedor
+from .forms import (
+    ClienteForm,
+    ConductorForm,
+    EnvioForm,
+    ProveedorForm,
+    UsuarioCreationForm,
+    UsuarioEditForm,
+    VehiculoForm,
+)
+from .models import Cliente, Conductor, Envio, Proveedor, Vehiculo
 
 
 def login_requerido(vista):
@@ -272,6 +280,116 @@ def eliminar_cliente(request, cliente_id):
 
     return render(request, "courier/confirmar_eliminar.html", {
         "objeto": cliente, "volver_url": "courier:lista_clientes",
+    })
+
+
+@login_requerido
+def lista_vehiculos(request):
+    """Listado de vehículos de la flota."""
+    contexto = {"vehiculos": Vehiculo.objects.select_related("proveedor")}
+    return render(request, "courier/lista_vehiculos.html", contexto)
+
+
+@admin_requerido
+def crear_vehiculo(request):
+    if request.method == "POST":
+        form = VehiculoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Vehículo creado correctamente.")
+            return redirect("courier:lista_vehiculos")
+    else:
+        form = VehiculoForm()
+
+    return render(request, "courier/form_generico.html", {
+        "form": form, "titulo": "Nuevo vehículo", "volver_url": "courier:lista_vehiculos",
+    })
+
+
+@admin_requerido
+def editar_vehiculo(request, vehiculo_id):
+    vehiculo = get_object_or_404(Vehiculo, pk=vehiculo_id)
+
+    if request.method == "POST":
+        form = VehiculoForm(request.POST, instance=vehiculo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Vehículo actualizado correctamente.")
+            return redirect("courier:lista_vehiculos")
+    else:
+        form = VehiculoForm(instance=vehiculo)
+
+    return render(request, "courier/form_generico.html", {
+        "form": form, "titulo": f"Editar vehículo · {vehiculo.patente}", "volver_url": "courier:lista_vehiculos",
+    })
+
+
+@admin_requerido
+def eliminar_vehiculo(request, vehiculo_id):
+    vehiculo = get_object_or_404(Vehiculo, pk=vehiculo_id)
+
+    if request.method == "POST":
+        vehiculo.delete()
+        messages.success(request, "Vehículo eliminado correctamente.")
+        return redirect("courier:lista_vehiculos")
+
+    return render(request, "courier/confirmar_eliminar.html", {
+        "objeto": vehiculo, "volver_url": "courier:lista_vehiculos",
+    })
+
+
+@login_requerido
+def lista_conductores(request):
+    """Listado de conductores."""
+    contexto = {"conductores": Conductor.objects.select_related("vehiculo")}
+    return render(request, "courier/lista_conductores.html", contexto)
+
+
+@admin_requerido
+def crear_conductor(request):
+    if request.method == "POST":
+        form = ConductorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Conductor creado correctamente.")
+            return redirect("courier:lista_conductores")
+    else:
+        form = ConductorForm()
+
+    return render(request, "courier/form_generico.html", {
+        "form": form, "titulo": "Nuevo conductor", "volver_url": "courier:lista_conductores",
+    })
+
+
+@admin_requerido
+def editar_conductor(request, conductor_id):
+    conductor = get_object_or_404(Conductor, pk=conductor_id)
+
+    if request.method == "POST":
+        form = ConductorForm(request.POST, instance=conductor)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Conductor actualizado correctamente.")
+            return redirect("courier:lista_conductores")
+    else:
+        form = ConductorForm(instance=conductor)
+
+    return render(request, "courier/form_generico.html", {
+        "form": form, "titulo": f"Editar conductor · {conductor.nombre}", "volver_url": "courier:lista_conductores",
+    })
+
+
+@admin_requerido
+def eliminar_conductor(request, conductor_id):
+    conductor = get_object_or_404(Conductor, pk=conductor_id)
+
+    if request.method == "POST":
+        conductor.delete()
+        messages.success(request, "Conductor eliminado correctamente.")
+        return redirect("courier:lista_conductores")
+
+    return render(request, "courier/confirmar_eliminar.html", {
+        "objeto": conductor, "volver_url": "courier:lista_conductores",
     })
 
 
