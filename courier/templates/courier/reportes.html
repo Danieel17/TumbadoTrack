@@ -1,0 +1,51 @@
+{% extends "courier/base.html" %}
+
+{% block title %}Reportes ORM{% endblock %}
+{% block header %}Reportes · Consultas ORM{% endblock %}
+
+{% block content %}
+<p class="text-sm text-stone-500 dark:text-stone-400 mb-6">
+    Evidencia de las consultas desarrolladas exclusivamente con el ORM de Django (sin SQL directo).
+    Cada tarjeta muestra la pregunta, el código Python/ORM utilizado y el resultado real obtenido
+    de la base de datos en este momento.
+</p>
+
+<div class="space-y-5">
+    {% for c in consultas %}
+    <div class="bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg overflow-hidden">
+        <div class="px-5 py-4 border-b border-stone-200 dark:border-stone-700 flex items-start justify-between gap-3">
+            <div>
+                <span class="inline-block px-2 py-0.5 rounded text-[11px] font-medium uppercase tracking-wide bg-teal-100 text-teal-700 dark:bg-teal-500/10 dark:text-teal-400 mb-1">
+                    {{ c.nivel }}
+                </span>
+                <h2 class="text-sm font-semibold text-stone-800 dark:text-stone-100">
+                    {{ c.n }}. {{ c.pregunta }}
+                </h2>
+            </div>
+        </div>
+
+        <div class="px-5 py-4 border-b border-stone-100 dark:border-stone-700/60 bg-stone-50 dark:bg-stone-900/40">
+            <p class="text-[11px] uppercase tracking-wide text-stone-400 dark:text-stone-500 mb-1">Código (Django ORM)</p>
+            <pre class="text-xs font-mono text-stone-700 dark:text-stone-300 whitespace-pre-wrap">{{ c.codigo }}</pre>
+        </div>
+
+        <div class="px-5 py-4">
+            <p class="text-[11px] uppercase tracking-wide text-stone-400 dark:text-stone-500 mb-2">Resultado</p>
+            {% if c.es_lista %}
+                {% if c.resultado %}
+                <ul class="text-sm text-stone-700 dark:text-stone-300 space-y-1 list-disc list-inside">
+                    {% for item in c.resultado %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-sm text-stone-400 dark:text-stone-500">Sin resultados.</p>
+                {% endif %}
+            {% else %}
+            <p class="text-sm text-stone-700 dark:text-stone-300 font-medium">{{ c.resultado }}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

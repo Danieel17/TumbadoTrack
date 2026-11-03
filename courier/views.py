@@ -17,6 +17,7 @@ from .forms import (
     VehiculoForm,
 )
 from .models import Cliente, Conductor, Envio, Proveedor, Vehiculo
+from .reportes import ejecutar_consultas
 
 
 def login_requerido(vista):
@@ -391,6 +392,15 @@ def eliminar_conductor(request, conductor_id):
     return render(request, "courier/confirmar_eliminar.html", {
         "objeto": conductor, "volver_url": "courier:lista_conductores",
     })
+
+
+@admin_requerido
+def reportes(request):
+    """Página de reportes: evidencia de las 10 consultas resueltas con el ORM
+    de Django (Parte 2 de la Evaluación 3), mostrando el código y el
+    resultado real obtenido de la base de datos."""
+    contexto = {"consultas": ejecutar_consultas()}
+    return render(request, "courier/reportes.html", contexto)
 
 
 @admin_requerido

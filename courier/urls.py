@@ -30,6 +30,7 @@ urlpatterns = [
     path("conductores/nuevo/", views.crear_conductor, name="crear_conductor"),
     path("conductores/<int:conductor_id>/editar/", views.editar_conductor, name="editar_conductor"),
     path("conductores/<int:conductor_id>/eliminar/", views.eliminar_conductor, name="eliminar_conductor"),
+    path("reportes/", views.reportes, name="reportes"),
     path("usuarios/", views.lista_usuarios, name="lista_usuarios"),
     path("usuarios/nuevo/", views.crear_usuario, name="crear_usuario"),
     path("usuarios/<int:usuario_id>/editar/", views.editar_usuario, name="editar_usuario"),
