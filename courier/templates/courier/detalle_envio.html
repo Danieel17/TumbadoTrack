@@ -35,6 +35,12 @@
                 <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Cliente</dt>
                 <dd class="text-stone-600 dark:text-stone-300">{{ envio.cliente.nombre }} · {{ envio.cliente.ciudad }}</dd>
             </div>
+            {% if envio.origen %}
+            <div>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Origen</dt>
+                <dd class="text-stone-600 dark:text-stone-300">{{ envio.origen }}</dd>
+            </div>
+            {% endif %}
             <div>
                 <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Destino</dt>
                 <dd class="text-stone-600 dark:text-stone-300">{{ envio.destino }}</dd>
@@ -61,6 +67,12 @@
             <div>
                 <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Entrega real</dt>
                 <dd class="text-emerald-600 dark:text-emerald-400">{{ envio.fecha_real_entrega }}</dd>
+            </div>
+            {% endif %}
+            {% if envio.observaciones %}
+            <div>
+                <dt class="text-xs uppercase text-stone-500 dark:text-stone-400">Observaciones</dt>
+                <dd class="text-stone-600 dark:text-stone-300">{{ envio.observaciones }}</dd>
             </div>
             {% endif %}
         </dl>

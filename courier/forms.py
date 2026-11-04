@@ -40,29 +40,34 @@ class ClienteForm(EstiloFormMixin, forms.ModelForm):
 
 
 class VehiculoForm(EstiloFormMixin, forms.ModelForm):
+    campos_checkbox = ("disponible",)
+
     class Meta:
         model = Vehiculo
-        fields = ["patente", "tipo", "capacidad_kg", "proveedor"]
+        fields = ["patente", "tipo", "marca", "modelo", "anio", "capacidad_kg", "disponible", "estado", "proveedor"]
 
 
 class ConductorForm(EstiloFormMixin, forms.ModelForm):
+    campos_checkbox = ("activo",)
+
     class Meta:
         model = Conductor
-        fields = ["nombre", "licencia", "telefono", "vehiculo"]
+        fields = ["rut", "nombre", "licencia", "telefono", "activo", "vehiculo"]
 
 
 class EnvioForm(EstiloFormMixin, forms.ModelForm):
     class Meta:
         model = Envio
         fields = [
-            "codigo", "producto", "proveedor", "cliente", "vehiculo", "conductor", "destino",
+            "codigo", "producto", "proveedor", "cliente", "vehiculo", "conductor", "origen", "destino",
             "peso_total_kg", "estado", "fecha_envio", "fecha_estimada_entrega",
-            "fecha_real_entrega", "ubicacion_actual",
+            "fecha_real_entrega", "ubicacion_actual", "observaciones",
         ]
         widgets = {
             "fecha_envio": forms.DateInput(attrs={"type": "date"}),
             "fecha_estimada_entrega": forms.DateInput(attrs={"type": "date"}),
             "fecha_real_entrega": forms.DateInput(attrs={"type": "date"}),
+            "observaciones": forms.Textarea(attrs={"rows": 3}),
         }
 
 

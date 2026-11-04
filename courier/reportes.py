@@ -28,22 +28,14 @@ def _consulta_2():
 
 
 def _consulta_3():
-    codigo = (
-        "Vehiculo.objects.exclude(\n"
-        "    envios__estado__in=[Envio.ESTADO_EN_TRANSITO, Envio.ESTADO_EN_ADUANA]\n"
-        ").distinct()"
-    )
-    resultado = list(
-        Vehiculo.objects.exclude(
-            envios__estado__in=[Envio.ESTADO_EN_TRANSITO, Envio.ESTADO_EN_ADUANA]
-        ).distinct()
-    )
+    codigo = "Vehiculo.objects.filter(disponible=True)"
+    resultado = list(Vehiculo.objects.filter(disponible=True))
     return codigo, resultado
 
 
 def _consulta_4():
-    codigo = "Vehiculo.objects.order_by('-capacidad_kg')"
-    resultado = list(Vehiculo.objects.order_by("-capacidad_kg")[:10])
+    codigo = "Vehiculo.objects.exclude(anio__isnull=True).order_by('anio')[:10]"
+    resultado = list(Vehiculo.objects.exclude(anio__isnull=True).order_by("anio")[:10])
     return codigo, resultado
 
 
@@ -94,8 +86,8 @@ def _consulta_10():
 CONSULTAS = [
     {"n": 1, "nivel": "Básico", "pregunta": "¿Cuáles son todos los vehículos registrados en el sistema?", "fn": _consulta_1},
     {"n": 2, "nivel": "Básico", "pregunta": "¿Qué vehículos son de tipo Camión?", "fn": _consulta_2},
-    {"n": 3, "nivel": "Básico", "pregunta": "¿Qué vehículos están disponibles (sin envíos en tránsito o en aduana)?", "fn": _consulta_3},
-    {"n": 4, "nivel": "Básico", "pregunta": "¿Cuáles son los 10 vehículos con mayor capacidad de carga?", "fn": _consulta_4},
+    {"n": 3, "nivel": "Básico", "pregunta": "¿Cuáles son los vehículos que se encuentran disponibles?", "fn": _consulta_3},
+    {"n": 4, "nivel": "Básico", "pregunta": "¿Cuáles son los 10 vehículos más antiguos de la empresa?", "fn": _consulta_4},
     {"n": 5, "nivel": "Intermedio", "pregunta": "¿Cuántos conductores están registrados en el sistema?", "fn": _consulta_5},
     {"n": 6, "nivel": "Intermedio", "pregunta": "¿Cuáles son los envíos realizados por un vehículo específico?", "fn": _consulta_6},
     {"n": 7, "nivel": "Intermedio", "pregunta": "¿Qué envíos tiene asignados un conductor específico?", "fn": _consulta_7},

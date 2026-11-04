@@ -97,9 +97,23 @@ class Vehiculo(models.Model):
         (TIPO_TRAILER, "Tráiler"),
     ]
 
+    ESTADO_DISPONIBLE = "disponible"
+    ESTADO_EN_VIAJE = "en_viaje"
+    ESTADO_MANTENCION = "mantencion"
+    ESTADO_CHOICES = [
+        (ESTADO_DISPONIBLE, "Disponible"),
+        (ESTADO_EN_VIAJE, "En viaje"),
+        (ESTADO_MANTENCION, "En mantención"),
+    ]
+
     patente = models.CharField(max_length=10, unique=True, verbose_name="Patente")
     tipo = models.CharField(max_length=20, choices=TIPO_CHOICES)
+    marca = models.CharField(max_length=60, blank=True)
+    modelo = models.CharField(max_length=60, blank=True)
+    anio = models.PositiveIntegerField(null=True, blank=True, verbose_name="Año")
     capacidad_kg = models.DecimalField(max_digits=8, decimal_places=1, verbose_name="Capacidad (kg)")
+    disponible = models.BooleanField(default=True)
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default=ESTADO_DISPONIBLE)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, related_name="vehiculos")
 
     class Meta:
@@ -112,9 +126,11 @@ class Vehiculo(models.Model):
 
 
 class Conductor(models.Model):
+    rut = models.CharField(max_length=12, unique=True, null=True, blank=True, verbose_name="RUT")
     nombre = models.CharField(max_length=150)
     licencia = models.CharField(max_length=30, unique=True, verbose_name="Licencia")
     telefono = models.CharField(max_length=30, verbose_name="Teléfono")
+    activo = models.BooleanField(default=True)
     vehiculo = models.ForeignKey(
         Vehiculo, on_delete=models.SET_NULL, related_name="conductores", null=True, blank=True
     )
@@ -133,11 +149,13 @@ class Envio(models.Model):
     ESTADO_EN_TRANSITO = "en_transito"
     ESTADO_EN_ADUANA = "en_aduana"
     ESTADO_ENTREGADO = "entregado"
+    ESTADO_CANCELADO = "cancelado"
     ESTADO_CHOICES = [
         (ESTADO_PREPARANDO, "Preparando"),
         (ESTADO_EN_TRANSITO, "En tránsito"),
         (ESTADO_EN_ADUANA, "En aduana"),
         (ESTADO_ENTREGADO, "Entregado"),
+        (ESTADO_CANCELADO, "Cancelado"),
     ]
 
     codigo = models.CharField(max_length=30, unique=True, verbose_name="Código")
@@ -150,6 +168,7 @@ class Envio(models.Model):
     conductor = models.ForeignKey(
         Conductor, on_delete=models.SET_NULL, related_name="envios", null=True, blank=True
     )
+    origen = models.CharField(max_length=200, blank=True)
     destino = models.CharField(max_length=200)
     peso_total_kg = models.DecimalField(max_digits=7, decimal_places=1, verbose_name="Peso total (kg)")
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default=ESTADO_PREPARANDO)
@@ -157,6 +176,7 @@ class Envio(models.Model):
     fecha_estimada_entrega = models.DateField(verbose_name="Fecha estimada de entrega")
     fecha_real_entrega = models.DateField(null=True, blank=True, verbose_name="Fecha real de entrega")
     ubicacion_actual = models.CharField(max_length=200, verbose_name="Ubicación actual")
+    observaciones = models.TextField(blank=True)
 
     class Meta:
         ordering = ["-fecha_envio"]

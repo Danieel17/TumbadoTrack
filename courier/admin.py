@@ -60,15 +60,16 @@ class BodegaAdmin(admin.ModelAdmin):
 
 @admin.register(Vehiculo)
 class VehiculoAdmin(admin.ModelAdmin):
-    list_display = ("patente", "tipo", "capacidad_kg", "proveedor")
-    list_filter = ("tipo", "proveedor")
-    search_fields = ("patente",)
+    list_display = ("patente", "tipo", "marca", "modelo", "anio", "disponible", "estado", "proveedor")
+    list_filter = ("tipo", "disponible", "estado", "proveedor")
+    search_fields = ("patente", "marca", "modelo")
 
 
 @admin.register(Conductor)
 class ConductorAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "licencia", "telefono", "vehiculo")
-    search_fields = ("nombre", "licencia")
+    list_display = ("nombre", "rut", "licencia", "telefono", "activo", "vehiculo")
+    list_filter = ("activo",)
+    search_fields = ("nombre", "licencia", "rut")
 
 
 @admin.register(Incidencia)

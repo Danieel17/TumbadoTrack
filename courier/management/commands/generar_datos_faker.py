@@ -89,6 +89,20 @@ class Command(BaseCommand):
 
             clientes.append(cliente)
 
+        marcas_vehiculo = [
+            "Mercedes-Benz",
+            "Volvo",
+            "Scania",
+            "Hyundai",
+            "Kia"
+        ]
+
+        estados_vehiculo = [
+            Vehiculo.ESTADO_DISPONIBLE,
+            Vehiculo.ESTADO_EN_VIAJE,
+            Vehiculo.ESTADO_MANTENCION
+        ]
+
         vehiculos = []
 
         for i in range(6):
@@ -100,9 +114,21 @@ class Command(BaseCommand):
 
                 tipo=random.choice(tipos_vehiculo),
 
+                marca=random.choice(marcas_vehiculo),
+
+                modelo=fake.word().capitalize(),
+
+                anio=random.randint(2012, 2026),
+
                 capacidad_kg=round(
                     random.uniform(500, 8000), 1
                 ),
+
+                disponible=fake.boolean(
+                    chance_of_getting_true=70
+                ),
+
+                estado=random.choice(estados_vehiculo),
 
                 proveedor=random.choice(proveedores)
             )
@@ -114,6 +140,10 @@ class Command(BaseCommand):
         for i in range(6):
 
             conductor = Conductor.objects.create(
+                rut=fake.unique.bothify(
+                    text="##.###.###-#"
+                ),
+
                 nombre=fake.name(),
 
                 licencia=fake.unique.bothify(
@@ -121,6 +151,10 @@ class Command(BaseCommand):
                 ),
 
                 telefono=fake.phone_number(),
+
+                activo=fake.boolean(
+                    chance_of_getting_true=85
+                ),
 
                 vehiculo=random.choice(vehiculos)
             )
@@ -162,6 +196,8 @@ class Command(BaseCommand):
                 vehiculo=random.choice(vehiculos),
 
                 conductor=random.choice(conductores),
+
+                origen=f"{fake.city()}, {fake.country()}",
 
                 destino=f"{fake.city()}, {fake.country()}",
 

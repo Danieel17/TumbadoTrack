@@ -9,6 +9,8 @@ Uso: {% include "partials/estado_badge.html" with estado=envio.estado %}
     <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 border border-amber-300 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/30">En aduana</span>
 {% elif estado == "preparando" %}
     <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-stone-200 text-stone-600 border border-stone-300 dark:bg-stone-500/10 dark:text-stone-400 dark:border-stone-500/30">Preparando</span>
+{% elif estado == "cancelado" %}
+    <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-700 border border-rose-300 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/30">Cancelado</span>
 {% else %}
     <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-300">{{ estado }}</span>
 {% endif %}
