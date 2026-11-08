@@ -1,0 +1,145 @@
+{% extends "courier/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+{% block header %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-6">
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label for="codigo" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Código</label>
+            <input type="text" id="codigo" name="codigo" value="{{ datos.codigo|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.codigo %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.codigo }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="producto" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Producto</label>
+            <select id="producto" name="producto" required
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                <option value="">- Selecciona -</option>
+                {% for producto in productos %}
+                <option value="{{ producto.id }}" {% if datos.producto_id|stringformat:"s" == producto.id|stringformat:"s" %}selected{% endif %}>{{ producto.nombre }}</option>
+                {% endfor %}
+            </select>
+            {% if errores.producto_id %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.producto_id }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="proveedor" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Proveedor</label>
+            <select id="proveedor" name="proveedor" required
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                <option value="">- Selecciona -</option>
+                {% for proveedor in proveedores %}
+                <option value="{{ proveedor.id }}" {% if datos.proveedor_id|stringformat:"s" == proveedor.id|stringformat:"s" %}selected{% endif %}>{{ proveedor.nombre }}</option>
+                {% endfor %}
+            </select>
+            {% if errores.proveedor_id %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.proveedor_id }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="cliente" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Cliente</label>
+            <select id="cliente" name="cliente" required
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                <option value="">- Selecciona -</option>
+                {% for cliente in clientes %}
+                <option value="{{ cliente.id }}" {% if datos.cliente_id|stringformat:"s" == cliente.id|stringformat:"s" %}selected{% endif %}>{{ cliente.nombre }}</option>
+                {% endfor %}
+            </select>
+            {% if errores.cliente_id %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.cliente_id }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="vehiculo" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Vehículo</label>
+            <select id="vehiculo" name="vehiculo"
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                <option value="">- Sin asignar -</option>
+                {% for vehiculo in vehiculos %}
+                <option value="{{ vehiculo.id }}" {% if datos.vehiculo_id|stringformat:"s" == vehiculo.id|stringformat:"s" %}selected{% endif %}>{{ vehiculo.patente }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="conductor" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Conductor</label>
+            <select id="conductor" name="conductor"
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                <option value="">- Sin asignar -</option>
+                {% for conductor in conductores %}
+                <option value="{{ conductor.id }}" {% if datos.conductor_id|stringformat:"s" == conductor.id|stringformat:"s" %}selected{% endif %}>{{ conductor.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="origen" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Origen</label>
+            <input type="text" id="origen" name="origen" value="{{ datos.origen|default:'' }}"
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+        </div>
+
+        <div>
+            <label for="destino" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Destino</label>
+            <input type="text" id="destino" name="destino" value="{{ datos.destino|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.destino %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.destino }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="peso_total_kg" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Peso total (kg)</label>
+            <input type="number" step="0.1" id="peso_total_kg" name="peso_total_kg" value="{{ datos.peso_total_kg|stringformat:'s' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.peso_total_kg %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.peso_total_kg }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="estado" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Estado</label>
+            <select id="estado" name="estado"
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                {% for valor, etiqueta in estados %}
+                <option value="{{ valor }}" {% if datos.estado == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="fecha_envio" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Fecha de envío</label>
+            <input type="date" id="fecha_envio" name="fecha_envio" value="{{ datos.fecha_envio|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.fecha_envio %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.fecha_envio }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="fecha_estimada_entrega" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Fecha estimada de entrega</label>
+            <input type="date" id="fecha_estimada_entrega" name="fecha_estimada_entrega" value="{{ datos.fecha_estimada_entrega|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.fecha_estimada_entrega %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.fecha_estimada_entrega }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="fecha_real_entrega" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Fecha real de entrega</label>
+            <input type="date" id="fecha_real_entrega" name="fecha_real_entrega" value="{{ datos.fecha_real_entrega|default:'' }}"
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+        </div>
+
+        <div>
+            <label for="ubicacion_actual" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Ubicación actual</label>
+            <input type="text" id="ubicacion_actual" name="ubicacion_actual" value="{{ datos.ubicacion_actual|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.ubicacion_actual %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.ubicacion_actual }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="observaciones" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Observaciones</label>
+            <textarea id="observaciones" name="observaciones" rows="3"
+                      class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">{{ datos.observaciones|default:'' }}</textarea>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">Guardar</button>
+            <a href="{% url 'courier:lista_envios' %}" class="text-sm text-stone-500 dark:text-stone-400 hover:underline">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

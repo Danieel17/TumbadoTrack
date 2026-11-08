@@ -1,0 +1,55 @@
+{% extends "courier/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+{% block header %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-6">
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label for="nombre" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value="{{ datos.nombre|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.nombre %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.nombre }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="ciudad" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Ciudad</label>
+            <input type="text" id="ciudad" name="ciudad" value="{{ datos.ciudad|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.ciudad %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.ciudad }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="tipo" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Tipo</label>
+            <select id="tipo" name="tipo"
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                {% for valor, etiqueta in tipos %}
+                <option value="{{ valor }}" {% if datos.tipo == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="email_contacto" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Correo de contacto</label>
+            <input type="email" id="email_contacto" name="email_contacto" value="{{ datos.email_contacto|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.email_contacto %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.email_contacto }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="telefono" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" value="{{ datos.telefono|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.telefono %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.telefono }}</p>{% endif %}
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">Guardar</button>
+            <a href="{% url 'courier:lista_clientes' %}" class="text-sm text-stone-500 dark:text-stone-400 hover:underline">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

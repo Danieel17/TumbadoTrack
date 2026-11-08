@@ -29,6 +29,9 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
 
+# A dónde redirige @login_required cuando el usuario no tiene sesión iniciada.
+LOGIN_URL = 'courier:login'
+
 
 # Application definition
 

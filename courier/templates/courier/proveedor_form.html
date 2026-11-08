@@ -1,0 +1,59 @@
+{% extends "courier/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+{% block header %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-6">
+    {# Formulario HTML propio (sin ModelForm): los campos se leen a mano en views.py con request.POST.get(...) #}
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label for="nombre" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value="{{ datos.nombre|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.nombre %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.nombre }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="pais" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">País</label>
+            <input type="text" id="pais" name="pais" value="{{ datos.pais|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.pais %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.pais }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="email_contacto" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Correo de contacto</label>
+            <input type="email" id="email_contacto" name="email_contacto" value="{{ datos.email_contacto|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.email_contacto %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.email_contacto }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="telefono" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" value="{{ datos.telefono|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.telefono %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.telefono }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="tasa_puntualidad" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Tasa de puntualidad (%)</label>
+            <input type="number" step="0.1" id="tasa_puntualidad" name="tasa_puntualidad" value="{{ datos.tasa_puntualidad|stringformat:'s' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.tasa_puntualidad %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.tasa_puntualidad }}</p>{% endif %}
+        </div>
+
+        <label class="flex items-center gap-2 text-sm text-stone-700 dark:text-stone-300">
+            <input type="checkbox" name="activo" {% if datos.activo != False %}checked{% endif %}
+                   class="rounded border-stone-300 text-teal-500 focus:ring-teal-400">
+            Activo
+        </label>
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">Guardar</button>
+            <a href="{% url 'courier:lista_proveedores' %}" class="text-sm text-stone-500 dark:text-stone-400 hover:underline">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

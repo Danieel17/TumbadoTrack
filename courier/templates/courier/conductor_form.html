@@ -1,0 +1,61 @@
+{% extends "courier/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+{% block header %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg bg-white border border-stone-200 dark:bg-stone-800 dark:border-stone-700 rounded-lg p-6">
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label for="rut" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">RUT</label>
+            <input type="text" id="rut" name="rut" value="{{ datos.rut|default:'' }}"
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+        </div>
+
+        <div>
+            <label for="nombre" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value="{{ datos.nombre|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.nombre %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.nombre }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="licencia" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Licencia</label>
+            <input type="text" id="licencia" name="licencia" value="{{ datos.licencia|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.licencia %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.licencia }}</p>{% endif %}
+        </div>
+
+        <div>
+            <label for="telefono" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" value="{{ datos.telefono|default:'' }}" required
+                   class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+            {% if errores.telefono %}<p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ errores.telefono }}</p>{% endif %}
+        </div>
+
+        <label class="flex items-center gap-2 text-sm text-stone-700 dark:text-stone-300">
+            <input type="checkbox" name="activo" {% if datos.activo != False %}checked{% endif %}
+                   class="rounded border-stone-300 text-teal-500 focus:ring-teal-400">
+            Activo
+        </label>
+
+        <div>
+            <label for="vehiculo" class="block text-xs uppercase tracking-wide text-stone-500 dark:text-stone-400 mb-1">Vehículo</label>
+            <select id="vehiculo" name="vehiculo"
+                    class="w-full rounded-md border border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                <option value="">- Sin asignar -</option>
+                {% for vehiculo in vehiculos %}
+                <option value="{{ vehiculo.id }}" {% if datos.vehiculo_id|stringformat:"s" == vehiculo.id|stringformat:"s" %}selected{% endif %}>{{ vehiculo.patente }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm rounded-md px-5 py-2.5 transition-colors">Guardar</button>
+            <a href="{% url 'courier:lista_conductores' %}" class="text-sm text-stone-500 dark:text-stone-400 hover:underline">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
